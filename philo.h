@@ -15,16 +15,18 @@ typedef struct s_inf
 	float	t_eat;
 	float	t_sleep;
 	float	nt_eat;
+	double	gtime;
 }			t_inf;
 
 typedef struct s_philo
 {
 	int 			id;
-	double				time;
 	t_inf			info;
 	pthread_t		thread;
+	pthread_t		monitor_thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	unsigned long	le_time;
 	struct s_philo	*prev;
 	struct s_philo	*next;
 }	t_philo;
@@ -39,6 +41,7 @@ void    initialize_input(char **argv, int argc, t_inf *info);
 void	assign_philos(t_philo **head, t_main *main);
 void	creat_threads(t_philo **head);
 void	*philosofers_routine(void *philos);
+void    *monitor_routine(void *pilos);
 double   get_time(void);
 
 #endif

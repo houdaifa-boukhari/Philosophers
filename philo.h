@@ -36,7 +36,7 @@ typedef struct s_main
 
 void    initialize_input(char **argv, int argc, t_inf *info);
 void	assign_philos(t_philo **head, t_main *main);
-void	creat_threads(t_philo **head, t_main *main);
+void	creat_threads(t_philo **head);
 void	*philosofers_routine(void *philos);
 double   get_time(void);
 

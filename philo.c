@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:27:31 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/05/22 10:10:07 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:33:16 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ void *philosofers_routine(void *philos)
 {
     t_philo *philo;
     philo = (t_philo *)philos;
-
+    philo->time = get_time();
     while (1)
     {
-        printf("Philosopher %d is thinking.\n", philo->id);
-        printf("right fork : %p\n", philo->right_fork);
-        printf("left fork : %p\n", philo->left_fork);
+        printf("Philosopher %d is thinking when %f.\n", philo->id, (get_time() - philo->time);
         printf("----------------------------\n");
 
         if (philo->id % 2 == 0)
@@ -34,13 +32,13 @@ void *philosofers_routine(void *philos)
             pthread_mutex_lock(philo->right_fork);
             pthread_mutex_lock(philo->left_fork);
         }
-        printf("Philosopher %d is eating.\n", philo->id);
+        printf("Philosopher %d is eating when %f.\n", philo->id, get_time() - philo->time);
         usleep(philo->info.t_eat * 1000);
 
         pthread_mutex_unlock(philo->right_fork);
         pthread_mutex_unlock(philo->left_fork);
 
-        printf("Philosopher %d is sleeping.\n", philo->id);
+        printf("Philosopher %d is sleeping when %f.\n", philo->id, get_time() - philo->time);
         usleep(philo->info.t_sleep * 1000);
     }
     return (NULL);

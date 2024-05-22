@@ -20,6 +20,7 @@ typedef struct s_inf
 typedef struct s_philo
 {
 	int 			id;
+	double				time;
 	t_inf			info;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;

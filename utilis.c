@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:54:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/05/24 18:34:50 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/05/24 20:55:20 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void    *monitor_routine(void *philos)
         pthread_mutex_lock(&philo->info->status_mutex);
         if ((get_time() - philo->le_time > philo->info->t_die && philo->le_time != 0) || n_meal == philo->info->n_philo)
         {
-            if ()
-                print_status("died", get_time(), philo);
+            if (n_meal != philo->info->n_philo)
+             print_status("died", get_time(), philo);
             philo->info->status = false;
             pthread_mutex_unlock(&philo->info->status_mutex);
             break ;

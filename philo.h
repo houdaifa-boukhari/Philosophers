@@ -10,6 +10,8 @@
 
 typedef struct s_inf
 {
+	pthread_mutex_t	status_mutex;
+	bool	status;
 	int		n_philo;
 	float	t_die;
 	float	t_eat;
@@ -21,7 +23,7 @@ typedef struct s_inf
 typedef struct s_philo
 {
 	int 			id;
-	t_inf			info;
+	t_inf			*info;
 	pthread_t		thread;
 	pthread_t		monitor_thread;
 	pthread_mutex_t	*left_fork;
@@ -38,10 +40,12 @@ typedef struct s_main
 }			t_main;
 
 void    initialize_input(char **argv, int argc, t_inf *info);
-void	assign_philos(t_philo **head, t_main *main);
+void    print_status(char *message, double real_time, t_philo *philo);
 void	creat_threads(t_philo **head);
 void	*philosofers_routine(void *philos);
 void    *monitor_routine(void *pilos);
 double   get_time(void);
+void printf_element(t_philo *philo);
+void	assign_philos(t_philo **head, t_inf *inf);
 
 #endif

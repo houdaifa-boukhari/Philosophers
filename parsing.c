@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/05/22 15:43:58 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:23:24 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ void    initialize_input(char **argv, int argc, t_inf *info)
 	info->t_die = ft_atoi(argv[2]);
 	info->t_eat = ft_atoi(argv[3]);
 	info->t_sleep = ft_atoi(argv[4]);
+	info->status = true;
+	pthread_mutex_init(&info->status_mutex, NULL);
     if (argc == 6)
 	    info->nt_eat = ft_atoi(argv[5]);
     else
         info->nt_eat = -1;
 }
 
-void	creat_list(int id, t_inf info, t_philo **head)
+void	creat_list(int id, t_inf **info, t_philo **head)
 {
 	t_philo	*philos;
 	t_philo	*ptr;
@@ -58,8 +60,9 @@ void	creat_list(int id, t_inf info, t_philo **head)
 	if (!philos)
 		return ;
 	philos->id = id;
-	philos->info = info;
-	philos->info.gtime = get_time();
+	philos->info = *info;
+	philos->le_time = 0;
+	philos->info->gtime = get_time();
 	philos->right_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(philos->right_fork, NULL);
 	philos->next = NULL;
@@ -82,21 +85,20 @@ void printf_element(t_philo *philo)
 	while (philo)
 	{
 		printf("philosfers id : %d\n", philo->id);
-		printf("left fork : %p\n", philo->left_fork);
-		printf("right fork : %p\n", philo->right_fork);
+		printf("status : %d\n", philo->info->status);
 		printf("----------------------------\n");
 		philo = philo->next;
 	}
 }
 
-void	assign_philos(t_philo **head, t_main *main)
+void	assign_philos(t_philo **head, t_inf *inf)
 {
 	int			i;
 	t_philo		*philos;
 
 	i  = 0;
-	while (i < main->info.n_philo)
-		creat_list(i++, main->info, head);
+	while (i < inf->n_philo)
+		creat_list(i++, &inf, head);
 	philos = (*head);
 	while (philos->next)
 	{
@@ -104,6 +106,7 @@ void	assign_philos(t_philo **head, t_main *main)
 		philos = philos->next;
 	}
 	philos->left_fork = (*head)->right_fork;
+	// printf_element(*head);
 }
 
 void	creat_threads(t_philo **head)

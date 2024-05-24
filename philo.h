@@ -10,7 +10,7 @@
 
 typedef struct s_inf
 {
-	pthread_mutex_t	status_mutex;
+	int		*tab;
 	bool	status;
 	int		n_philo;
 	float	t_die;
@@ -18,6 +18,8 @@ typedef struct s_inf
 	float	t_sleep;
 	float	nt_eat;
 	double	gtime;
+	pthread_mutex_t	status_mutex;
+	pthread_mutex_t meal_mutex;
 }			t_inf;
 
 typedef struct s_philo
@@ -33,11 +35,6 @@ typedef struct s_philo
 	struct s_philo	*next;
 }	t_philo;
 
-typedef struct s_main
-{
-	t_inf	info;
-	t_philo	*philo;
-}			t_main;
 
 void    initialize_input(char **argv, int argc, t_inf *info);
 void    print_status(char *message, double real_time, t_philo *philo);

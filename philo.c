@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:27:31 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/05/24 17:22:02 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:29:08 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void *philosofers_routine(void *philos)
         
         print_status("is eating", get_time(), philo);
         usleep(philo->info->t_eat * 1000);
+        pthread_mutex_lock(&philo->info->meal_mutex);
+        philo->info->tab[philo->id]++;
+        pthread_mutex_unlock(&philo->info->meal_mutex);
 
         pthread_mutex_unlock(philo->right_fork);
         pthread_mutex_unlock(philo->left_fork);

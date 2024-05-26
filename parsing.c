@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/05/24 18:28:03 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:30:10 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void    initialize_input(char **argv, int argc, t_inf *info)
 		return ;
 	pthread_mutex_init(&info->meal_mutex, NULL);
 	pthread_mutex_init(&info->status_mutex, NULL);
-    if (argc == 6)
+	pthread_mutex_init(&info->sleep_mutex, NULL);
+	pthread_mutex_init(&info->time_mutex, NULL);
+	if (argc == 6)
 	    info->nt_eat = ft_atoi(argv[5]);
     else
         info->nt_eat = -1;
@@ -67,6 +69,7 @@ void	creat_list(int id, t_inf **info, t_philo **head)
 	philos->info = *info;
 	philos->le_time = 0;
 	philos->info->gtime = get_time();
+	philos->info->gc_time = get_time();
 	philos->right_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(philos->right_fork, NULL);
 	philos->next = NULL;
@@ -128,6 +131,7 @@ void	creat_threads(t_philo **head)
 	while (philos)
 	{
 		pthread_join(philos->thread, NULL);
+		pthread_join(philos->monitor_thread, NULL);
 		philos = philos->next;
 	}
 }

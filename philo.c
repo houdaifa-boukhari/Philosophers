@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:27:31 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/05/26 16:51:47 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:33:43 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,47 +27,36 @@ void *philosofers_routine(void *philos)
         }
         pthread_mutex_unlock(&philo->info->status_mutex);
         
-        print_status("is thinking", get_time(), philo);
+        print_status("is thinking", philo);
         if (philo->id % 2 == 0)
         {
-            print_status("has taken a fork", get_time(), philo);
+            print_status("has taken a fork", philo);
             pthread_mutex_lock(philo->left_fork);
             pthread_mutex_lock(philo->right_fork);
         }
         else
         {
-            print_status("has taken a fork", get_time(), philo);
+            print_status("has taken a fork", philo);
             pthread_mutex_lock(philo->right_fork);
             pthread_mutex_lock(philo->left_fork);
         }
         
         pthread_mutex_lock(&philo->info->time_mutex);
         philo->le_time = get_time();
-        philo->current_time = philo->le_time;
         pthread_mutex_unlock(&philo->info->time_mutex);
         
-        print_status("is eating", get_time(), philo);
-        // pthread_mutex_lock(&philo->info->sleep_mutex);
-        my_sleep(philo->info->t_eat, philo);
-        // usleep(philo->info->t_eat * 1000);
-        // pthread_mutex_unlock(&philo->info->sleep_mutex);
+        print_status("is eating", philo);
+        my_sleep(philo->info->t_eat);
 
-        // pthread_mutex_lock(&philo->info->meal_mutex);
-        // philo->info->tab[philo->id]++;
-        // pthread_mutex_unlock(&philo->info->meal_mutex);
+        pthread_mutex_lock(&philo->info->meal_mutex);
+        philo->info->tab[philo->id]++;
+        pthread_mutex_unlock(&philo->info->meal_mutex);
 
         pthread_mutex_unlock(philo->right_fork);
         pthread_mutex_unlock(philo->left_fork);
 
-        pthread_mutex_lock(&philo->info->time_mutex);
-        philo->current_time = get_time();
-        pthread_mutex_unlock(&philo->info->time_mutex);
-        
-        print_status("is sleeping", get_time(), philo);
-        // pthread_mutex_lock(&philo->info->sleep_mutex);
-        my_sleep(philo->info->t_sleep,  philo);
-        // usleep(philo->info->t_sleep * 1000);
-        // pthread_mutex_unlock(&philo->info->sleep_mutex);
+        print_status("is sleeping", philo);
+        my_sleep(philo->info->t_sleep);
         
     }
     return (NULL);
@@ -93,17 +82,18 @@ int main(int argc, char **argv)
         pthread_mutex_destroy(philos->left_fork);
         pthread_mutex_destroy(&info.sleep_mutex);
         pthread_mutex_destroy(&info.time_mutex);
-        // philos->le_time = get_time();
-        // printf("le_time == %f\n", philos->le_time);
-        // for (int i =0; i <= 10; i++)
-        // {
-        //     printf("-----------------------\n");
-        //     printf("old_time %ld\n", (size_t)get_time());
-        //     my_sleep(200, philos);
-        //     printf("new_time %ld\n", (size_t)get_time());
-        //     printf("-----------------------\n");
-            
-        // }
+ 
+    // for (int i =0; i <= 100; i++)
+    // {
+    //     printf("-----------------------\n");
+    //     double old_time = get_time();
+    //     printf("old_time %f\n", old_time);
+    //     my_sleep(200);
+    //     double new_time = get_time();
+    //     printf("new_time %f\n", new_time);
+    //     printf("time increment %f\n", new_time - old_time);
+    //     printf("-----------------------\n");
+    // }
         
 	}
     

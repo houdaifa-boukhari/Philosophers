@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/05/26 11:30:10 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:46:50 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	creat_list(int id, t_inf **info, t_philo **head)
 		return ;
 	philos->id = id;
 	philos->info = *info;
-	philos->le_time = 0;
+	philos->le_time = get_time();
 	philos->info->gtime = get_time();
 	philos->info->gc_time = get_time();
 	philos->right_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
@@ -113,7 +113,6 @@ void	assign_philos(t_philo **head, t_inf *inf)
 		philos = philos->next;
 	}
 	philos->left_fork = (*head)->right_fork;
-	// printf_element(*head);
 }
 
 void	creat_threads(t_philo **head)

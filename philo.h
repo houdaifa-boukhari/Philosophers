@@ -17,8 +17,8 @@ typedef struct s_inf
 	float	t_eat;
 	float	t_sleep;
 	float	nt_eat;
-	double	gtime;
-	double	gc_time;
+	unsigned long long	gtime;
+	unsigned long long	gc_time;
 	pthread_mutex_t	status_mutex;
 	pthread_mutex_t meal_mutex;
 	pthread_mutex_t	sleep_mutex;
@@ -28,7 +28,7 @@ typedef struct s_inf
 typedef struct s_philo
 {
 	int 			id;
-	float			le_time;
+	unsigned long long			le_time;
 	float			current_time;
 	t_inf			*info;
 	pthread_t		thread;
@@ -41,12 +41,13 @@ typedef struct s_philo
 
 
 void    initialize_input(char **argv, int argc, t_inf *info);
-void    print_status(char *message, double real_time, t_philo *philo);
+void    print_status(char *message, t_philo *philo);
 void	creat_threads(t_philo **head);
 void	*philosofers_routine(void *philos);
 void    *monitor_routine(void *pilos);
-double   get_time(void);
-void	my_sleep(float time_end, t_philo *philo);
+unsigned long long  get_time(void);
+// void	my_sleep(float time);
+void my_sleep(unsigned int seconds);
 void	printf_element(t_philo *philo);
 void	assign_philos(t_philo **head, t_inf *inf);
 

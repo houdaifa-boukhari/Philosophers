@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -O3 -fsanitize=thread
 SRC =  parsing.c philo.c utilis.c
 HEADER = philo.h
 OBJ = $(SRC:.c=.o)

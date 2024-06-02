@@ -47,9 +47,11 @@ void	creat_threads(t_philo **head);
 void	*philosofers_routine(void *philos);
 void    monitor_routine(t_philo *philo);
 unsigned long long  get_time(void);
-// void	my_sleep(unsigned int time);
 void	my_sleep(t_philo *philo , unsigned int time);
-void	printf_element(t_philo *philo);
 void	assign_philos(t_philo **head, t_inf *inf);
+bool    take_fork(t_philo *philos);
+void    eating(t_philo *philo);
+bool	check_time(t_philo *philo);
+bool	check_meal(t_philo *philo);
 
 #endif

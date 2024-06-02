@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:54:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 20:03:07 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:17:21 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,13 @@ void    monitor_routine(t_philo *philo)
 
 	while (1)
 	{
-		pthread_mutex_lock(&philo->info->time_mutex);
-		if (get_time() - philo->le_time >= philo->info->t_die)
-		{
-			pthread_mutex_unlock(&philo->info->time_mutex);
-			pthread_mutex_lock(&philo->info->status_mutex);
-			philo->info->status = false;
-			pthread_mutex_unlock(&philo->info->status_mutex);
-			if (philo->info->n_meal != (size_t)philo->info->n_philo)
-				printf("%llu %d %s\n", get_time() - philo->info->gtime, philo->id, "died");
+		if (check_time(philo) || check_meal(philo))
 			break ;
-		}
-		pthread_mutex_unlock(&philo->info->time_mutex);
 		pthread_mutex_lock(&philo->info->meal_mutex);
 		if (philo->info->tab[philo->id - 1] == philo->info->nt_eat)
 		{
 			philo->info->n_meal++;
 			philo->info->tab[philo->id - 1] = 0;
-		}
-		if (philo->info->n_meal >= (size_t)philo->info->n_philo)
-		{
-			pthread_mutex_lock(&philo->info->status_mutex);
-			philo->info->status = false;
-			pthread_mutex_unlock(&philo->info->status_mutex);
-			pthread_mutex_unlock(&philo->info->meal_mutex);
-			break ;
 		}
 		pthread_mutex_unlock(&philo->info->meal_mutex);
 		philo = philo->next;

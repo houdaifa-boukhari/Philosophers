@@ -6,13 +6,13 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 20:10:47 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 21:22:51 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:25:09 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
-bool    take_fork(t_philo *philo)
+bool	take_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->right_fork);
 	print_status("has taken a fork", philo);
@@ -23,16 +23,15 @@ bool    take_fork(t_philo *philo)
 	return (true);
 }
 
-void    eating(t_philo *philo)
+void	eating(t_philo *philo)
 {
 	print_status("is eating", philo);
-	my_sleep(philo ,philo->info->t_eat);
+	my_sleep(philo, philo->info->t_eat);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_lock(&philo->info->meal_mutex);
 	philo->info->tab[philo->id - 1]++;
 	pthread_mutex_unlock(&philo->info->meal_mutex);
-
 }
 
 bool	check_time(t_philo *philo)
@@ -45,7 +44,8 @@ bool	check_time(t_philo *philo)
 		philo->info->status = false;
 		pthread_mutex_unlock(&philo->info->status_mutex);
 		if (philo->info->n_meal != (size_t)philo->info->n_philo)
-			printf("%llu %d %s\n", get_time() - philo->info->gtime, philo->id, "died");
+			printf("%llu %d %s\n", get_time() - philo->info->gtime, philo->id,
+				"died");
 		return (true);
 	}
 	pthread_mutex_unlock(&philo->info->time_mutex);

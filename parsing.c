@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 21:23:50 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:27:38 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_atoi(char *str)
 	return (result * sign);
 }
 
-void    initialize_input(char **argv, int argc, t_inf *info)
+void	initialize_input(char **argv, int argc, t_inf *info)
 {
 	info->n_philo = ft_atoi(argv[1]);
 	info->t_die = ft_atoi(argv[2]);
@@ -86,10 +86,10 @@ void	creat_list(int id, t_inf **info, t_philo **head)
 
 void	assign_philos(t_philo **head, t_inf *inf)
 {
-	int			i;
-	t_philo		*philos;
+	int		i;
+	t_philo	*philos;
 
-	i  = 1;
+	i = 1;
 	while (i <= inf->n_philo)
 		creat_list(i++, &inf, head);
 	philos = (*head);
@@ -101,24 +101,10 @@ void	assign_philos(t_philo **head, t_inf *inf)
 	philos->left_fork = (*head)->right_fork;
 }
 
-void	cercle_linked(t_philo **head)
-{
-	t_philo		*philos;
-	t_philo		*ptr;
-
-	philos = *head;
-	ptr = philos;
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = philos;
-	philos->prev = ptr;
-		
-}
-
 void	creat_threads(t_philo **head)
 {
-	int			i;
-	t_philo		*philos;
+	int		i;
+	t_philo	*philos;
 
 	i = 0;
 	philos = *head;

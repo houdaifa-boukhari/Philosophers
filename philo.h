@@ -1,57 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/02 21:27:07 by hel-bouk          #+#    #+#             */
+/*   Updated: 2024/06/02 21:28:21 by hel-bouk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
 # include <pthread.h>
-# include <stdlib.h>
+# include <stdbool.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
-# include <stdbool.h>
 
 typedef struct s_inf
 {
-	int		*tab;
-	bool	status;
-	int		n_philo;
-	float	t_die;
-	float	t_eat;
-	float	t_sleep;
-	float	nt_eat;
-	size_t	n_meal;
+	int					*tab;
+	bool				status;
+	int					n_philo;
+	float				t_die;
+	float				t_eat;
+	float				t_sleep;
+	float				nt_eat;
+	size_t				n_meal;
 	unsigned long long	gtime;
 	unsigned long long	gc_time;
-	pthread_mutex_t	status_mutex;
-	pthread_mutex_t meal_mutex;
-	pthread_mutex_t	sleep_mutex;
-	pthread_mutex_t time_mutex;
-}			t_inf;
+	pthread_mutex_t		status_mutex;
+	pthread_mutex_t		meal_mutex;
+	pthread_mutex_t		sleep_mutex;
+	pthread_mutex_t		time_mutex;
+}						t_inf;
 
 typedef struct s_philo
 {
-	int 			id;
+	int					id;
 	unsigned long long	le_time;
 	unsigned long long	s_time;
-	t_inf			*info;
-	pthread_t		thread;
-	pthread_t		monitor_thread;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-	struct s_philo	*prev;
-	struct s_philo	*next;
-}	t_philo;
+	t_inf				*info;
+	pthread_t			thread;
+	pthread_t			monitor_thread;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
+	struct s_philo		*prev;
+	struct s_philo		*next;
+}						t_philo;
 
-
-void    initialize_input(char **argv, int argc, t_inf *info);
-void    print_status(char *message, t_philo *philo);
-void	creat_threads(t_philo **head);
-void	*philosofers_routine(void *philos);
-void    monitor_routine(t_philo *philo);
-unsigned long long  get_time(void);
-void	my_sleep(t_philo *philo , unsigned int time);
-void	assign_philos(t_philo **head, t_inf *inf);
-bool    take_fork(t_philo *philos);
-void    eating(t_philo *philo);
-bool	check_time(t_philo *philo);
-bool	check_meal(t_philo *philo);
+void					initialize_input(char **argv, int argc, t_inf *info);
+void					print_status(char *message, t_philo *philo);
+void					creat_threads(t_philo **head);
+void					*philosofers_routine(void *philos);
+void					monitor_routine(t_philo *philo);
+void					my_sleep(t_philo *philo, unsigned int time);
+void					assign_philos(t_philo **head, t_inf *inf);
+void					cercle_linked(t_philo **head);
+bool					take_fork(t_philo *philos);
+void					eating(t_philo *philo);
+bool					check_time(t_philo *philo);
+bool					check_meal(t_philo *philo);
+unsigned long long		get_time(void);
 
 #endif

@@ -6,16 +6,15 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:27:31 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 21:23:46 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:26:55 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-void *philosofers_routine(void *philos)
+void	*philosofers_routine(void *philos)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)philos;
 	if (((philo->id) % 2) == 0)
@@ -40,12 +39,11 @@ void *philosofers_routine(void *philos)
 	return (NULL);
 }
 
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int			i;
-	t_philo    *philos;
-	t_inf     info;
+	int		i;
+	t_inf	info;
+	t_philo	*philos;
 
 	i = 0;
 	philos = NULL;

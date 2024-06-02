@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "philo.h": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "locale": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:54:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 19:56:08 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/02 20:03:07 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    monitor_routine(t_philo *philo)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->info->time_mutex);
-		if (get_time() - philo->le_time >= philo->info->t_die && philo->le_time != 0)
+		if (get_time() - philo->le_time >= philo->info->t_die)
 		{
 			pthread_mutex_unlock(&philo->info->time_mutex);
 			pthread_mutex_lock(&philo->info->status_mutex);

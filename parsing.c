@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 19:58:40 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/02 20:05:21 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	creat_list(int id, t_inf **info, t_philo **head)
 	t_philo	*philos;
 	t_philo	*ptr;
 
-	if (!head)
-		return ;
 	philos = malloc(sizeof(t_philo));
 	if (!philos)
 		return ;
@@ -84,17 +82,6 @@ void	creat_list(int id, t_inf **info, t_philo **head)
 	philos->prev = ptr;
 	ptr->next = philos;
 	return ;
-}
-
-void printf_element(t_philo *philo)
-{
-	while (philo)
-	{
-		printf("philosfers id : %d\n", philo->id);
-		printf("status : %d\n", philo->info->status);
-		printf("----------------------------\n");
-		philo = philo->next;
-	}
 }
 
 void	assign_philos(t_philo **head, t_inf *inf)

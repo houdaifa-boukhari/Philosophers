@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 20:05:21 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:23:50 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void    initialize_input(char **argv, int argc, t_inf *info)
 	pthread_mutex_init(&info->sleep_mutex, NULL);
 	pthread_mutex_init(&info->time_mutex, NULL);
 	if (argc == 6)
-	    info->nt_eat = ft_atoi(argv[5]);
-    else
-        info->nt_eat = -1;
+		info->nt_eat = ft_atoi(argv[5]);
+	else
+		info->nt_eat = -1;
 }
 
 void	creat_list(int id, t_inf **info, t_philo **head)

@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 19:47:18 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/02 19:58:40 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ void	creat_threads(t_philo **head)
 	}
 	philos = *head;
 	monitor_routine(philos);
-	printf("hello\n");
 	i = 0;
 	while (i < philos->info->n_philo)
 	{

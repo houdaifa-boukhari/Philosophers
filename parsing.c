@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 12:10:59 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:02:13 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_atoi(char *str, int *flag)
 		}
 		i++;
 	}
-	if (str[i] != '\0')
+	if (str[i] != '\0' || result == 0)
 		*flag = 1;
 	return (result);
 }

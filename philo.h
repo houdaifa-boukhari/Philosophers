@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:27:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 12:11:21 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:04:43 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_inf
 typedef struct s_philo
 {
 	int					id;
+	unsigned long long	cle_time;
 	unsigned long long	le_time;
 	unsigned long long	s_time;
 	t_inf				*info;

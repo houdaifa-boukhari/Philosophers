@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 20:10:47 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 21:25:09 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:06:07 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ void	eating(t_philo *philo)
 bool	check_time(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->time_mutex);
-	if (get_time() - philo->le_time >= philo->info->t_die)
+	philo->cle_time = philo->le_time;
+	pthread_mutex_unlock(&philo->info->time_mutex);
+	if (get_time() - philo->cle_time >= philo->info->t_die)
 	{
-		pthread_mutex_unlock(&philo->info->time_mutex);
 		pthread_mutex_lock(&philo->info->status_mutex);
 		philo->info->status = false;
 		pthread_mutex_unlock(&philo->info->status_mutex);
@@ -48,7 +49,6 @@ bool	check_time(t_philo *philo)
 				"died");
 		return (true);
 	}
-	pthread_mutex_unlock(&philo->info->time_mutex);
 	return (false);
 }
 

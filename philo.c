@@ -6,11 +6,21 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:27:31 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 12:19:33 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:32:00 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+bool	is_deide(t_philo *philo)
+{
+	bool	status;
+
+	pthread_mutex_lock(&philo->info->status_mutex);
+	status = philo->info->status;
+	pthread_mutex_unlock(&philo->info->status_mutex);
+	return (status);
+}
 
 void	*philosofers_routine(void *philos)
 {
@@ -22,7 +32,7 @@ void	*philosofers_routine(void *philos)
 		print_status("is sleeping", philo);
 		my_sleep(philo, philo->info->t_sleep);
 	}
-	while (philo->info->status)
+	while (is_deide(philo))
 	{
 		print_status("is thinking", philo);
 		if (!take_fork(philo))
@@ -33,8 +43,6 @@ void	*philosofers_routine(void *philos)
 		eating(philo);
 		print_status("is sleeping", philo);
 		my_sleep(philo, philo->info->t_sleep);
-		pthread_mutex_lock(&philo->info->status_mutex);
-		pthread_mutex_unlock(&philo->info->status_mutex);
 	}
 	return (NULL);
 }

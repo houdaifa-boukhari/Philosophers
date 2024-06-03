@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:54:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 11:48:29 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:32:58 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,17 @@ void	print_status(char *message, t_philo *philo)
 
 void	my_sleep(t_philo *philo, unsigned int time)
 {
+	bool	status;
+
 	philo->s_time = get_time();
 	while (1)
 	{
 		if (get_time() - philo->s_time >= time)
+			break ;
+		pthread_mutex_lock(&philo->info->status_mutex);
+		status = philo->info->status;
+		pthread_mutex_unlock(&philo->info->status_mutex);
+		if (status == false)
 			break ;
 		usleep(50);
 	}

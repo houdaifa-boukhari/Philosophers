@@ -6,53 +6,65 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 11:31:02 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:10:59 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(char *str)
+int	ft_atoi(char *str, int *flag)
 {
 	int		i;
-	int		sign;
 	long	result;
 
 	i = 0;
-	sign = 1;
 	result = 0;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign *= -1;
+	if (str[i] == '+')
 		i++;
-	}
+	if (!str || !(str[i] >= '0' && str[i] <= '9'))
+		*flag = 1;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - '0');
+		if ((result > INT_MAX))
+		{
+			*flag = 1;
+			break ;
+		}
 		i++;
 	}
-	return (result * sign);
+	if (str[i] != '\0')
+		*flag = 1;
+	return (result);
 }
 
-void	initialize_input(char **argv, int argc, t_inf *info)
+bool	initialize_input(char **argv, int argc, t_inf *info)
 {
-	info->n_philo = ft_atoi(argv[1]);
-	info->t_die = ft_atoi(argv[2]);
-	info->t_eat = ft_atoi(argv[3]);
-	info->t_sleep = ft_atoi(argv[4]);
+	int	flag;
+
+	flag = 0;
+	info->n_philo = ft_atoi(argv[1], &flag);
+	info->t_die = ft_atoi(argv[2], &flag);
+	info->t_eat = ft_atoi(argv[3], &flag);
+	info->t_sleep = ft_atoi(argv[4], &flag);
 	info->status = true;
 	info->n_meal = 0;
+	if (argc == 6)
+		info->nt_eat = ft_atoi(argv[5], &flag);
+	else
+		info->nt_eat = -1;
+	if (flag == 1)
+	{
+		ft_error();
+		return (false);
+	}
 	info->tab = ft_calloc(sizeof(int), info->n_philo);
 	if (!info->tab)
-		return ;
+		return (false);
 	pthread_mutex_init(&info->meal_mutex, NULL);
 	pthread_mutex_init(&info->status_mutex, NULL);
 	pthread_mutex_init(&info->time_mutex, NULL);
-	if (argc == 6)
-		info->nt_eat = ft_atoi(argv[5]);
-	else
-		info->nt_eat = -1;
+	return (true);
 }
 
 void	creat_list(int id, t_inf **info, t_philo **head)

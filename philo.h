@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:27:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 11:30:48 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:11:21 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include <pthread.h>
 # include <stdbool.h>
+# include <limits.h>
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
@@ -51,7 +53,7 @@ typedef struct s_philo
 	struct s_philo		*next;
 }						t_philo;
 
-void					initialize_input(char **argv, int argc, t_inf *info);
+bool					initialize_input(char **argv, int argc, t_inf *info);
 void					print_status(char *message, t_philo *philo);
 void					creat_threads(t_philo **head);
 void					*philosofers_routine(void *philos);
@@ -65,6 +67,7 @@ bool					take_fork(t_philo *philos);
 void					eating(t_philo *philo);
 bool					check_time(t_philo *philo);
 bool					check_meal(t_philo *philo);
+void					ft_error(void);
 unsigned long long		get_time(void);
 
 #endif

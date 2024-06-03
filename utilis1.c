@@ -6,25 +6,11 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:27:54 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 11:33:45 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:19:13 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (len > 0)
-	{
-		((unsigned char *)b)[i] = (unsigned char)c;
-		i++;
-		len--;
-	}
-	return (b);
-}
+#include "philo.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -37,7 +23,7 @@ void	*ft_calloc(size_t count, size_t size)
 	memory = malloc(count * size);
 	if (!memory)
 		return (NULL);
-	ft_memset(memory, 0, count * size);
+	memset(memory, 0, count * size);
 	return (memory);
 }
 
@@ -58,4 +44,12 @@ void	free_pilosofers(t_philo **head)
 		i++;
 	}
 	*head = NULL;
+}
+
+void	ft_error(void)
+{
+	printf("Use valid format \"number_of_philosophers "
+		"time_to_die time_to_eat "
+		"time_to_sleep [number_of_times_each_philosopher_must_eat]\" "
+		"with positive number.\n");
 }

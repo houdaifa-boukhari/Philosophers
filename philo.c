@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:27:31 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 11:34:26 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:19:33 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	main(int argc, char **argv)
 	philos = NULL;
 	if (argc == 5 || argc == 6)
 	{
-		initialize_input(argv, argc, &info);
+		if (initialize_input(argv, argc, &info) == false)
+			return (-1);
 		assign_philos(&philos, &info);
 		creat_threads(&philos);
 		pthread_mutex_destroy(&info.status_mutex);
@@ -59,5 +60,7 @@ int	main(int argc, char **argv)
 		free_pilosofers(&philos);
 		free(info.tab);
 	}
+	else
+		ft_error();
 	return (0);
 }

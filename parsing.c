@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 21:27:38 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:31:02 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ void	initialize_input(char **argv, int argc, t_inf *info)
 	info->t_sleep = ft_atoi(argv[4]);
 	info->status = true;
 	info->n_meal = 0;
-	info->tab = calloc(sizeof(int), info->n_philo);
+	info->tab = ft_calloc(sizeof(int), info->n_philo);
 	if (!info->tab)
 		return ;
 	pthread_mutex_init(&info->meal_mutex, NULL);
 	pthread_mutex_init(&info->status_mutex, NULL);
-	pthread_mutex_init(&info->sleep_mutex, NULL);
 	pthread_mutex_init(&info->time_mutex, NULL);
 	if (argc == 6)
 		info->nt_eat = ft_atoi(argv[5]);

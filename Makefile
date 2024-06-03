@@ -1,7 +1,7 @@
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -O3
-SRC =  parsing.c philo.c utilis.c actions.c
+SRC =  parsing.c philo.c utilis.c actions.c utilis1.c
 HEADER = philo.h
 OBJ = $(SRC:.c=.o)
 

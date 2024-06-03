@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:27:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 11:15:21 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:30:48 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_inf
 	unsigned long long	gc_time;
 	pthread_mutex_t		status_mutex;
 	pthread_mutex_t		meal_mutex;
-	pthread_mutex_t		sleep_mutex;
 	pthread_mutex_t		time_mutex;
 }						t_inf;
 
@@ -60,6 +59,7 @@ void					monitor_routine(t_philo *philo);
 void					free_pilosofers(t_philo **head);
 void					my_sleep(t_philo *philo, unsigned int time);
 void					assign_philos(t_philo **head, t_inf *inf);
+void					*ft_calloc(size_t count, size_t size);
 void					cercle_linked(t_philo **head);
 bool					take_fork(t_philo *philos);
 void					eating(t_philo *philo);

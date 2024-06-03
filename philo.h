@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:27:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 21:28:21 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:15:21 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void					print_status(char *message, t_philo *philo);
 void					creat_threads(t_philo **head);
 void					*philosofers_routine(void *philos);
 void					monitor_routine(t_philo *philo);
+void					free_pilosofers(t_philo **head);
 void					my_sleep(t_philo *philo, unsigned int time);
 void					assign_philos(t_philo **head, t_inf *inf);
 void					cercle_linked(t_philo **head);

@@ -6,11 +6,30 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:27:31 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/02 21:26:55 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:19:24 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	free_pilosofers(t_philo **head)
+{
+	int		i;
+	int		size;
+	t_philo	*ptr;
+
+	i = 0;
+	size = (*head)->info->n_philo;
+	while (i < size)
+	{
+		ptr = (*head)->next;
+		free((*head)->right_fork);
+		free(*head);
+		*head = ptr;
+		i++;
+	}
+	*head = NULL;
+}
 
 void	*philosofers_routine(void *philos)
 {
@@ -58,6 +77,7 @@ int	main(int argc, char **argv)
 		pthread_mutex_destroy(philos->left_fork);
 		pthread_mutex_destroy(&info.sleep_mutex);
 		pthread_mutex_destroy(&info.time_mutex);
+		free_pilosofers(&philos);
 	}
 	return (0);
 }

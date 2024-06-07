@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:27:31 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 15:32:00 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:53:03 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,18 @@ int	main(int argc, char **argv)
 	t_philo	*philos;
 
 	i = 0;
-	philos = NULL;
 	if (argc == 5 || argc == 6)
 	{
 		if (initialize_input(argv, argc, &info) == false)
 			return (-1);
-		assign_philos(&philos, &info);
-		creat_threads(&philos);
-		pthread_mutex_destroy(&info.status_mutex);
-		pthread_mutex_destroy(&info.meal_mutex);
-		pthread_mutex_destroy(philos->right_fork);
-		pthread_mutex_destroy(&info.time_mutex);
-		free_pilosofers(&philos);
-		free(info.tab);
+		philos = creat_struct(&info);
+		assign_philos(philos);
+		creat_threads(philos);
+		// pthread_mutex_destroy(&info.status_mutex);
+		// pthread_mutex_destroy(&info.meal_mutex);
+		// pthread_mutex_destroy(&info.time_mutex);
+		// free_pilosofers(&philos);
+		// free(info.tab);
 	}
 	else
 		ft_error();

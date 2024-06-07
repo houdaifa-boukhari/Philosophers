@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:27:07 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 15:04:43 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:17:58 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,17 @@ typedef struct s_philo
 	pthread_t			monitor_thread;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
-	struct s_philo		*prev;
-	struct s_philo		*next;
 }						t_philo;
 
 bool					initialize_input(char **argv, int argc, t_inf *info);
 void					print_status(char *message, t_philo *philo);
-void					creat_threads(t_philo **head);
+void					creat_threads(t_philo *philos);
+t_philo	*creat_struct(t_inf *inf);
 void					*philosofers_routine(void *philos);
 void					monitor_routine(t_philo *philo);
 void					free_pilosofers(t_philo **head);
 void					my_sleep(t_philo *philo, unsigned int time);
-void					assign_philos(t_philo **head, t_inf *inf);
+void					assign_philos(t_philo *philo);
 void					*ft_calloc(size_t count, size_t size);
 void					cercle_linked(t_philo **head);
 bool					take_fork(t_philo *philos);

@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:54:01 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 15:39:01 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:55:57 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,6 @@ unsigned long long	get_time(void)
 	time_s = time.tv_sec * 1000;
 	time_us = time.tv_usec / 1000.0;
 	return (time_s + time_us);
-}
-
-void	cercle_linked(t_philo **head)
-{
-	t_philo	*philos;
-	t_philo	*ptr;
-
-	philos = *head;
-	ptr = philos;
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = philos;
-	philos->prev = ptr;
 }
 
 void	print_status(char *message, t_philo *philo)
@@ -66,17 +53,22 @@ void	my_sleep(t_philo *philo, unsigned int time)
 
 void	monitor_routine(t_philo *philo)
 {
+	int i;
+
+	i = 0;
 	while (1)
 	{
-		if (check_time(philo) || check_meal(philo))
+		if (check_time(philo + i) || check_meal(philo + i))
 			break ;
 		pthread_mutex_lock(&philo->info->meal_mutex);
 		if (philo->info->tab[philo->id - 1] == philo->info->nt_eat)
 		{
-			philo->info->n_meal++;
-			philo->info->tab[philo->id - 1] = 0;
+			philo[i].info->n_meal++;
+			philo[i].info->tab[philo->id - 1] = 0;
 		}
 		pthread_mutex_unlock(&philo->info->meal_mutex);
-		philo = philo->next;
+		if (i == philo[0].info->n_philo - 1)
+			i = -1;
+		i++;
 	}
 }

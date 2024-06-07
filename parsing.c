@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:51:08 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 13:02:13 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:53:27 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,73 +67,57 @@ bool	initialize_input(char **argv, int argc, t_inf *info)
 	return (true);
 }
 
-void	creat_list(int id, t_inf **info, t_philo **head)
+t_philo	*creat_struct(t_inf *inf)
 {
-	t_philo	*philos;
-	t_philo	*ptr;
-
-	philos = malloc(sizeof(t_philo));
-	if (!philos)
-		return ;
-	philos->id = id;
-	philos->info = *info;
-	philos->le_time = get_time();
-	philos->right_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(philos->right_fork, NULL);
-	philos->next = NULL;
-	if (!*head)
-	{
-		philos->prev = NULL;
-		*head = philos;
-		return ;
-	}
-	ptr = *head;
-	while (ptr->next)
-		ptr = ptr->next;
-	philos->prev = ptr;
-	ptr->next = philos;
-	return ;
-}
-
-void	assign_philos(t_philo **head, t_inf *inf)
-{
-	int		i;
-	t_philo	*philos;
-
-	i = 1;
-	while (i <= inf->n_philo)
-		creat_list(i++, &inf, head);
-	philos = (*head);
-	while (philos->next)
-	{
-		philos->left_fork = philos->next->right_fork;
-		philos = philos->next;
-	}
-	philos->left_fork = (*head)->right_fork;
-}
-
-void	creat_threads(t_philo **head)
-{
-	int		i;
-	t_philo	*philos;
+	int	i;
+	t_philo *philo;
 
 	i = 0;
-	philos = *head;
-	cercle_linked(head);
-	philos->info->gtime = get_time();
-	while (i < philos->info->n_philo)
+	philo = ft_calloc(sizeof(t_philo), inf->n_philo);
+	if (!philo)
+		return (NULL);
+	while (i < (inf)->n_philo)
 	{
-		pthread_create(&(philos->thread), NULL, philosofers_routine, philos);
-		philos = philos->next;
+		philo[i].id = i + 1;
+		philo[i].info = inf;
+		philo[i].le_time = get_time();
+		philo[i].right_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philo[i].right_fork, NULL);
 		i++;
 	}
-	philos = *head;
+	return (philo);
+}
+
+void	assign_philos(t_philo *philo)
+{
+	int		i;
+
+	i = 0;
+	while (i < philo[0].info->n_philo  - 1)
+	{
+		philo[i].left_fork = philo[i + 1].right_fork;
+		i++;
+	}
+	philo[i].left_fork = philo[0].right_fork;
+}
+
+void	creat_threads(t_philo *philos)
+{
+	int		i;
+
+	i = 0;
+	philos[0].info->gtime = get_time();
+	while (i < philos[0].info->n_philo)
+	{
+		pthread_create(&(philos[i].thread), NULL, philosofers_routine, philos);
+		i++;
+	}
 	monitor_routine(philos);
 	i = 0;
-	while (i < philos->info->n_philo)
+	while (i < philos[0].info->n_philo)
 	{
-		pthread_join(philos->thread, NULL);
-		philos = philos->next;
+		pthread_join(philos[i].thread, NULL);
+		pthread_mutex_destroy(philos[i].right_fork);
 		i++;
 	}
 }

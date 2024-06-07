@@ -6,7 +6,7 @@
 /*   By: hel-bouk <hel-bouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:27:54 by hel-bouk          #+#    #+#             */
-/*   Updated: 2024/06/03 12:19:13 by hel-bouk         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:48:06 by hel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ void	*ft_calloc(size_t count, size_t size)
 	return (memory);
 }
 
-void	free_pilosofers(t_philo **head)
-{
-	int		i;
-	int		size;
-	t_philo	*ptr;
+// void	free_pilosofers(t_philo **head)
+// {
+// 	int		i;
+// 	int		size;
+// 	t_philo	*ptr;
 
-	i = 0;
-	size = (*head)->info->n_philo;
-	while (i < size)
-	{
-		ptr = (*head)->next;
-		free((*head)->right_fork);
-		free(*head);
-		*head = ptr;
-		i++;
-	}
-	*head = NULL;
-}
+// 	i = 0;
+// 	size = (*head)->info->n_philo;
+// 	while (i < size)
+// 	{
+// 		ptr = (*head)->next;
+// 		free((*head)->right_fork);
+// 		free(*head);
+// 		*head = ptr;
+// 		i++;
+// 	}
+// 	*head = NULL;
+// }
 
 void	ft_error(void)
 {
